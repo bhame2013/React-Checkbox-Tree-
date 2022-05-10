@@ -1,6 +1,37 @@
 import { CheckBox } from "components/checkbox";
 import { TreeItem } from "interfaces/TreeItem";
 
+
+function CreateTree(treeItem: TreeItem[]) {
+  return treeItem.map((item) => {
+    if (item.children !== {}) {
+      return (
+        <li key={item.id}>
+          <CheckBox id={item.id} name={item.name} />
+
+          <ul>{CreateTree(Object.values(item.children) as TreeItem[])}</ul>
+        </li>
+      );
+    }
+
+    return (
+      <li key={item.id}>
+        <CheckBox id={item.id} name={item.name} />
+      </li>
+    );
+  });
+}
+
+function GetValuesSelecteds() {
+  const allInputs = document.querySelectorAll(`input`);
+
+  const filterAllCheckeds = Array.from(allInputs)
+    .filter((input) => input.checked === true)
+    .map((input) => input.id);
+
+  return filterAllCheckeds;
+}
+
 const nodeArray = (selector: string, parent = document) =>
   [].slice.call(parent.querySelectorAll(selector));
 
@@ -40,36 +71,9 @@ function OnChangeCheckboxTree(check: any) {
   parent.indeterminate = !every && every !== some;
 
   check = check != parent ? parent : false;
+  
+  return GetValuesSelecteds()
 }
 
-function CreateTree(treeItem: TreeItem[]) {
-  return treeItem.map((item) => {
-    if (item.children !== {}) {
-      return (
-        <li key={item.id}>
-          <CheckBox id={item.id} name={item.name} />
 
-          <ul>{CreateTree(Object.values(item.children) as TreeItem[])}</ul>
-        </li>
-      );
-    }
-
-    return (
-      <li key={item.id}>
-        <CheckBox id={item.id} name={item.name} />
-      </li>
-    );
-  });
-}
-
-function GetTree() {
-  const allInputs = document.querySelectorAll(`input`);
-
-  const filterAllCheckeds = Array.from(allInputs)
-    .filter((input) => input.checked === true)
-    .map((input) => input.id);
-
-  return filterAllCheckeds;
-}
-
-export { GetTree, CreateTree, OnChangeCheckboxTree };
+export { GetValuesSelecteds, CreateTree, OnChangeCheckboxTree };

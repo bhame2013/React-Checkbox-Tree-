@@ -1,4 +1,4 @@
-import { OnChangeCheckboxTree } from "src/helper/tree";
+import { useTree } from "src/contexts/tree";
 
 interface CheckBoxProps {
   id: string;
@@ -6,9 +6,12 @@ interface CheckBoxProps {
 }
 
 export function CheckBox({ id, name }: CheckBoxProps) {
+
+  const { onChangeTree } = useTree()
+
   return (
     <>
-      <input type="checkbox" name={name} id={id} onChange={(e) => OnChangeCheckboxTree(e.target)} />
+      <input type="checkbox" name={name} id={id} onChange={onChangeTree} />
       <label htmlFor={id} className="custom-unchecked">
         {name}
       </label>

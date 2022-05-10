@@ -1,13 +1,14 @@
 import Head from "next/head";
 import { AppProps } from "next/app";
+import { TreeProvider } from 'src/contexts/tree'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <div>
+    <TreeProvider>
       <Head>
-        <title></title>
+        <title>HiPlatform Desafio de Frontend</title>
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="" />
+        <meta name="description" content="HiPlatform Desafio de Frontend" />
         <meta
           name="viewport"
           content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui"
@@ -15,7 +16,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <Component {...pageProps} />
-    </div>
+    </TreeProvider>
   );
 };
 
