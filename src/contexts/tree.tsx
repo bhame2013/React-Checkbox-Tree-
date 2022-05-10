@@ -15,7 +15,7 @@ interface ProvidersProps {
 
 interface TreeContext {
   tree: string[];
-  onChangeTree: (e: ChangeEvent<HTMLInputElement>) => void;
+  OnChangeTree: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TreeContext = createContext<TreeContext>(undefined);
@@ -23,14 +23,14 @@ const TreeContext = createContext<TreeContext>(undefined);
 function TreeProvider({ children }: ProvidersProps) {
   const [tree, setTree] = useState<string[]>([]);
 
-  const onChangeTree = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const OnChangeTree = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const data = OnChangeCheckboxTree(e.target);
 
     setTree(data);
   }, []);
 
   return (
-    <TreeContext.Provider value={{ tree, onChangeTree }}>
+    <TreeContext.Provider value={{ tree, OnChangeTree }}>
       {children}
     </TreeContext.Provider>
   );

@@ -1,6 +1,6 @@
 import { CheckBox } from "components/checkbox";
-import { TreeItem } from "interfaces/TreeItem";
 
+import { TreeItem } from "interfaces/treeItem";
 
 function CreateTree(treeItem: TreeItem[]) {
   return treeItem.map((item) => {
@@ -32,25 +32,31 @@ function GetValuesSelecteds() {
   return filterAllCheckeds;
 }
 
-const nodeArray = (selector: string, parent = document) =>
+const NodeArray = (selector: string, parent = document) =>
   [].slice.call(parent.querySelectorAll(selector));
-
-//https://www.bennadel.com/blog/3730-typescript-and-parentnode-vs-parentelement.html conteúdo usado para resolução da tarefa proposta
 
 //tentei bastante achar a tipagem correta para o "check" porém não encontrei uma que entrasse em conformidade com o parentNode + ser um tipo de EventTarget, desculpe vou ficar devendo
 function OnChangeCheckboxTree(check: any) {
+  
   //Pega todos os inputs que estão dentro do li e seleciona eles
-  const children = nodeArray("input", check.parentNode);
+  const children = NodeArray("input", check.parentNode);
 
-  children.forEach((child) => (child.checked = check.checked));
+  children.forEach((child) => {
+
+    if(child.indeterminate) {
+      child.indeterminate = false
+    }
+
+    return (child.checked = check.checked)
+  });
   //---------------------------------------------------------------
 
   //pega na DOM o ul mais próximo que será o seu container e logo após faz um "parentNode" para pegar o elemento pai que será o li e acha o input "pai"
   const parent = check.closest(["ul"]).parentNode.querySelector("input");
 
   //pega o li pai atráves do input subindo um nível na hierarquia do DOM e depois seleciona todos os ul dentro dele
-  //e logo após usando o método nodeArray função criada para procurar todos os itens atráves do parametro passado ele irá buscar os inputs lá dentro
-  const siblings = nodeArray(
+  //e logo após usando o método NodeArray função criada para procurar todos os itens atráves do parametro passado ele irá buscar os inputs lá dentro
+  const siblings = NodeArray(
     "input",
     parent.closest("li").querySelector(["ul"])
   );
@@ -71,9 +77,8 @@ function OnChangeCheckboxTree(check: any) {
   parent.indeterminate = !every && every !== some;
 
   check = check != parent ? parent : false;
-  
-  return GetValuesSelecteds()
-}
 
+  return GetValuesSelecteds();
+}
 
 export { GetValuesSelecteds, CreateTree, OnChangeCheckboxTree };

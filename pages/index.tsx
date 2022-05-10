@@ -1,10 +1,9 @@
 import json from "src/utils/tree-data.json";
 
-import * as S from "src/styles/tree";
-
+import { useTree } from "src/contexts/tree";
 import { CreateTree } from "src/helper/tree";
 
-import { useTree } from "src/contexts/tree";
+import * as S from "src/styles/tree";
 
 export default function HomePage() {
   const treeJsonParsed = Object.values(json);

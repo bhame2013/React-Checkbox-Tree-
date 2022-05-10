@@ -7,11 +7,11 @@ interface CheckBoxProps {
 
 export function CheckBox({ id, name }: CheckBoxProps) {
 
-  const { onChangeTree } = useTree()
+  const { OnChangeTree } = useTree()
 
   return (
     <>
-      <input type="checkbox" name={name} id={id} onChange={onChangeTree} />
+      <input type="checkbox" name={name} id={id} onChange={OnChangeTree} />
       <label htmlFor={id} className="custom-unchecked">
         {name}
       </label>

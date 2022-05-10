@@ -4,9 +4,22 @@ import styled from "styled-components";
 export const Tree = styled.main`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 5rem;
 
   ul {
     list-style: none;
+  }
+
+  input, input {
+    margin-bottom: 10px;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  label:hover {
+    color: red;
+    transition: 0.3s;
   }
 `;
